@@ -42,6 +42,9 @@ mathematical assumptions or finite-search restrictions.
 - `comparator.json`: the one compared theorem and the standard permitted axioms.
 - `formalization.yaml`: sources, authorship, AI use, scope, and review status.
 - `Audit.lean`: axiom inspection of the result and principal dependencies.
+- `DEFINITIONS.md`: definition-level review of `cliqueNum` and `chromaticNumber`,
+  including degenerate cases, with the two pinned Mathlib source files that
+  define them under `reference/` (verbatim, uncompiled `.txt` copies).
 
 The project pins Lean `v4.35.0-rc2` and Mathlib commit
 `065356127b1dc0016f66b7283ce0ce2c4055aa55`, including its full dependency manifest.
