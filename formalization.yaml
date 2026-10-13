@@ -1,0 +1,121 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: v0.4
+
+project:
+  name: "Triangle-free graphs with prescribed chromatic number"
+  description: >-
+    A Lean formalization of the classical existence of finite triangle-free
+    graphs with arbitrarily large chromatic number. For each integer k at
+    least two, it constructs a finite simple graph whose clique number is
+    exactly two and whose chromatic number is exactly k. The proof iterates
+    the Mycielski construction from the complete graph on two vertices.
+    This is the Tutte–Zykov variant recorded with Erdős problem 627, not a
+    solution of that problem's open asymptotic limit question.
+  authors: ["alexander"]
+  license: Apache-2.0
+  responsible_maintainers: ["alexander"]
+
+classification:
+  arxiv: [math.CO]
+  msc2020: [05C15]
+
+sources:
+  - title: "Sur le coloriage des graphs"
+    authors: ["Jan Mycielski"]
+    type: paper
+    id: "doi:10.4064/cm-3-2-161-162"
+    location: "https://doi.org/10.4064/cm-3-2-161-162"
+    relationship: formalizes
+    note: >-
+      Colloquium Mathematicum 3 (1955), pages 161–162. The source gives
+      the construction and the lower coloring argument. The extension
+      coloring and finite iteration give the exact chromatic number.
+    author_endorsement: n/a
+  - title: "Erdős problem 627"
+    type: other
+    id: "https://www.erdosproblems.com/627"
+    location: "https://www.erdosproblems.com/627"
+    relationship: background
+    contributors:
+      - name: "Thomas Bloom"
+        role: "editor of the Erdős Problems website"
+      - name: "Paul Erdős"
+        role: "proposer of the main problem"
+    note: >-
+      Context and attribution of the established Tutte–Zykov variant.
+      The main normalized chromatic-to-clique ratio limit problem is not proved.
+    author_endorsement: not-contacted
+
+related_formalizations:
+  - id: "https://github.com/AItoBit/formal-conjectures/tree/1a76ea748d65814f4e979d746bb281228f4dbf5e"
+    relationship: adapts
+    note: >-
+      The substantive Mycielski proof developed in the same AI-assisted task
+      and submitted as google-deepmind/formal-conjectures PR 7259 is included
+      here in full, with its Apache-2.0 copyright header retained. This
+      standalone package ports it from Lean 4.33.1 to the pinned Palomar
+      toolchain. It does not depend on FormalConjectures or import that
+      repository's unproved conjecture placeholders.
+
+status:
+  scope: >-
+    Complete proof of the single compared Tutte–Zykov existence theorem,
+    for all k ≥ 2. The shared development includes the construction,
+    upper and lower coloring arguments, preservation of triangle-freeness,
+    exact clique number, and relabelling to Fin n. Other variants and the
+    main asymptotic problem 627 are outside this submission.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+
+automation:
+  methods:
+    - method: agent
+      models: ["OpenAI GPT-6 family via Codex"]
+      framework: "Codex with the Erdős Research Lab plugin"
+      tool_setup: >-
+        AI agents wrote the proof, searched pinned Mathlib APIs, read the
+        mathematical sources, ran Lean, and performed a distinct agent audit.
+        Lean tactics include simp, omega, constructor and case analysis,
+        and ordinary kernel-checked decide; no native_decide is used.
+      prompting_notes: >-
+        The human requested a full formal proof and accepted an established
+        variant after the main problem was found to remain open, then
+        requested Palomar packaging and submission.
+  notes: >-
+    The human selected the scope, requested publication and supplied the
+    name alexander for authorship and responsibility. AI performed the
+    mathematical formalization and packaging. No human expert review,
+    mathematical novelty, or priority of formalization is claimed.
+
+fidelity:
+  divergences: >-
+    The source's informal every-k wording is restricted to k ≥ 2 because
+    a graph with clique number two has an edge. Both invariants are exact.
+    Fin n expresses finiteness, with n allowed to depend on k. The theorem
+    realizes the same established variant through Mycielski's construction.
+    It makes no claim about the extremal ratio's asymptotic limit.
+
+review:
+  status: agent-reviewed
+  reviewers: ["A separate Codex agent in the source-development task"]
+  notes: >-
+    The source-development audit checked the primary Mycielski paper,
+    quantifier order, exact invariants, non-vacuity, empty inputs, k = 2,
+    construction, recoloring, and finite relabelling. This is an AI audit,
+    not independent human peer review. Reproducible build and Comparator
+    evidence is supplied by the pinned CI workflow for each snapshot.
+
+alignment:
+  namespace: Erdos627
+  statements:
+    - source: "Tutte–Zykov variant on the Erdős problem 627 page; Mycielski (1955)"
+      lean: Erdos627.erdos_627.variants.tutte_zykov
+      module: Solution
+      status: proved
+      note: "A finite graph with clique number two and chromatic number k exists for every k ≥ 2."
+
+acknowledgements: >-
+  Mathlib contributors; the Formal Conjectures project; Palomar's public
+  template and verification tooling. Mathematical sources and dependencies
+  retain their own authorship and licences.
